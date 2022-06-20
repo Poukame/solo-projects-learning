@@ -1,0 +1,359 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #1c1c1c;
+}
+
+html,
+body,
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    width: 100%;
+}
+
+body {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* TYPOGRAPHY */
+
+h1 {
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: -0.045em;
+    line-height: 1.1;
+    color: #fff;
+    text-align: center;
+}
+
+input,
+.search-button {
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.25;
+}
+
+input {
+    color: #6b7280;
+}
+
+.search-button {
+    color: #374151;
+}
+
+.page-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.25;
+}
+
+.movie-title {
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.25;
+    color: #000000;
+}
+
+.synopsis {
+    font-size: 0.875rem;
+    color: #525252;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+.movie-rating,
+.meta-info {
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.25;
+    color: #111827;
+}
+
+.movie-rating .fa-star {
+    color: #fec654;
+    margin-left: 8px;
+    margin-right: 4px;
+}
+
+.watchlist-add-btn {
+    font-size: 0.75rem;
+}
+
+.watchlist-add-btn i {
+    font-size: 0.9375rem;
+}
+
+/* LAYOUT */
+
+.hero {
+    background-color: #535353;
+    padding: 0 2em;
+    min-height: 12.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-image: url(./images/hero-image.jpg);
+    background-position: 0% 20%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: multiply;
+}
+
+.hero h1 {
+    margin-top: 0.5em;
+    margin-bottom: 0.7em;
+    flex-shrink: 0;
+}
+
+.hero--watchlist {
+    margin-bottom: 2em;
+}
+
+main {
+    min-height: 70vh;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    width: 90%;
+    padding-bottom: 2em;
+}
+
+.fa-film,
+.message {
+    color: #525252;
+}
+
+.message a {
+    color: #434343;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 0 1em;
+    appearance: button;
+    text-decoration: none;
+}
+
+.error {
+    color: #a30000;
+    line-height: 1.5em;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.fa-film {
+    display: inline-block;
+    text-align: center;
+}
+
+.message {
+    font-weight: 700;
+    font-size: 1.125rem;
+    text-align: center;
+}
+
+/* MOVIE CONTAINER */
+
+.movie-poster {
+    max-width: 150px;
+    margin: 0 auto;
+    display: block;
+}
+
+.movie-data {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1em;
+    width: 100%;
+}
+
+.title-rating {
+    align-items: center;
+}
+
+.title-rating,
+.meta-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.meta-info {
+    align-items: baseline;
+    gap: 1.25rem;
+}
+
+.watchlist-add-btn {
+    border: 1px #1c1c1c solid;
+    border-radius: 7px;
+    background-color: #f5f5f5;
+    padding: 0 1em;
+    margin: 1em 0;
+    min-height: 45px;
+}
+
+.fa-circle-plus,
+.fa-circle-minus,
+.fa-circle-check {
+    margin-right: 0.7em;
+}
+
+hr {
+    border: #e5e7eb 1.5px solid;
+    background-color: #e5e7eb;
+    margin: 1.5em 0;
+}
+
+/* SEARCH BAR */
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 45px;
+    border-radius: 6px;
+    background-color: #fff;
+    border: #d1d5db solid 1px;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    max-width: 90%;
+    overflow: hidden;
+}
+
+input {
+    flex: 3 0 auto;
+    border: none;
+    min-height: 50px;
+    padding: 0 1.5em;
+}
+
+.search-button {
+    flex: 1 0 auto;
+    border-left: 1px solid #d1d5db;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 0px 6px 6px 0px;
+    background-color: #f9fafb;
+    padding: 9px 11px 9px 17px;
+    cursor: pointer;
+}
+
+.search-button::before {
+    content: '\f002';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+/* HOVER AND STATES CHANGE */
+
+.page-link {
+    border-bottom: 2px solid #ff8cbc;
+    transition: all 0.25s linear;
+    position: relative;
+}
+
+.page-link:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #61a3ff;
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    transform-origin: left;
+    transform: scale(0);
+    transition: 0.25s linear;
+}
+
+.page-link:hover:before,
+.page-link:focus:before,
+.page-link:active:before {
+    transform: scale(1);
+}
+
+.watchlist-add-btn {
+    border-radius: 7px;
+    background-color: #f5f5f5;
+    padding: 0 1em;
+    margin: 1em 0;
+    min-height: 45px;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
+    outline: 1px solid;
+    outline-color: #1c1c1c;
+    outline-offset: 0px;
+    text-shadow: none;
+    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.watchlist-add-btn:hover,
+.watchlist-add-btn:focus {
+    border: 1px solid;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+    outline-color: rgba(255, 255, 255, 0);
+    outline-offset: 15px;
+    text-shadow: 1px 1px 2px #848586;
+    background-color: #1c1c1c;
+    color: #fff;
+}
+
+.added,
+.added:focus,
+.added:hover,
+.added:disabled {
+    color: green;
+    font-weight: 700;
+    background-color: #f5f5f5;
+    box-shadow: inset 0 0 20px rgba(187, 62, 62, 0);
+    border: 1px solid #e5e7eb;
+    text-shadow: none;
+    outline: unset;
+}
+
+.wheel {
+    width: 70px;
+    height: 70px;
+    display: block;
+    margin: 2em auto;
+}
+
+/* MEDIA QUERY */
+
+@media (min-width: 570px) {
+    h1 {
+        font-size: 2.625rem;
+    }
+
+    .hero,
+    .movie-container,
+    .movie-data {
+        display: flex;
+    }
+
+    .hero {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .movie-data {
+        align-items: flex-start;
+        padding-left: 1em;
+        padding-top: 0;
+    }
+
+    .meta-info {
+        flex-wrap: nowrap;
+    }
+}

@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+    <head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+        
+        <title>Unit Converter</title>
+    </head>
+    
+    <body>
+        
+        <div class="container">
+            <div class="top-part">
+
+                <div class="top-part-title">
+                    Metric / Imperial unit conversion
+                </div> 
+
+                <div class="input-div">
+                    <input type="number" id="input-value" class="input" value="20">
+                </div>
+
+            </div> <!-- top-part -->  
+            
+            <div class="bottom-part">
+                <div class="conv-container">
+                    <div class="conv-title">
+                    Length (Meter / Feet)
+                    </div>
+
+                    <div class="conv-output" id="length-output">
+                        output
+                    </div>
+                </div> <!-- length cont --> 
+
+                <div class="conv-container">
+                    <div class="conv-title">
+                    Volume (Liters / Gallons)
+                    </div>
+
+                    <div class="conv-output" id="volume-output">
+                        output
+                    </div>
+                </div> <!-- volume cont --> 
+
+                <div class="conv-container">
+                    <div class="conv-title">
+                    Mass (Kilo / Pounds)
+                    </div>
+
+                    <div class="conv-output" id="mass-output">
+                        output
+                    </div>
+                </div> <!-- mass cont -->            
+            </div> <!-- bottom-part -->  
+        </div> <!-- container -->
+        
+    </body>
+    <script src="index.js"></script>
+</html>

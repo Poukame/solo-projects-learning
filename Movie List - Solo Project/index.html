@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://kit.fontawesome.com/81792a9055.js" crossorigin="anonymous"></script>
+
+        <title>Search for Movies to Add to Your Watchlist</title>
+    </head>
+    <body>
+        <section class="hero">
+            <h1>Find your film</h1>
+            <a href="./watchlist.html" class="page-link">Go to my Watchlist</a>
+        </section>
+
+        <form id="form" role="search">
+            <label for="query"></label>
+            <input
+                type="search"
+                id="query"
+                name="q"
+                placeholder="Search for a movie..."
+                aria-label="Type a movie name to search it in the database"
+            />
+            <button class="search-button" id="search">Search</button>
+        </form>
+
+        <main id="list">
+            <div class="message">
+                <i class="fa-solid fa-film fa-7x"></i>
+                <p>Start Exploring</p>
+            </div>
+        </main>
+
+        <script src="index.js"></script>
+    </body>
+</html>
