@@ -10,8 +10,8 @@ I did this project after 1 week of learning HTML / CSS and JavaScript.
 
 ### Links
 
-- [GitHub Repo](https://github.com/Poukame/Movie-Watchlist)
-- Live Demo : [Unit Converter](https://movie-watchlist-api.netlify.app)
+- [GitHub Repo](https://github.com/Poukame/solo-projects-learning/tree/main/Unit%20Converter%20-%20Solo%20Project)
+- Live Demo : [Unit Converter](https://eloquent-custard-837b06.netlify.app)
 
 
 ## Author
