@@ -11,7 +11,7 @@ The travels experiences listed here are really mine. I have travelled a lot and 
 ### Links
 
 - [GitHub Repo](https://github.com/Poukame/solo-projects-learning/tree/main/Travel%20Journal%20-%20React%20Solo%20Project)
-- Live Demo : [Professional Card](https://professional-card-react.netlify.app/)
+- Live Demo : [Travel Blog](https://prismatic-raindrop-a22b4b.netlify.app/)
 
 ## My process
 
