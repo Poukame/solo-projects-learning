@@ -7,18 +7,14 @@ This project is part of the June 2022 challenge week from Scrimba.
 
 Write a function to display a galaxy of stars (at least 100) in the DOM.
 
-- 1. Ensure that the stars always fill each line
-- 2. Add different sizes of star 
-
 
 ### Screenshot
 
-![Visual](./screenshot/planet.webp)
+![Visual](./screenshot/galaxy.webp)
 
 ### Links
 
-- [GitHub Repo](https://github.com/Poukame/Movie-Watchlist)
-- Live Demo : [Solar System](https://movie-watchlist-api.netlify.app)
+- [GitHub Repo](https://github.com/Poukame/solo-projects-learning/tree/main/Scrimba%20Challenge%20-%20June%202022/Day%202%20-%20Render%20Stars)
 
 
 ## Author
