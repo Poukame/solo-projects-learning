@@ -1,0 +1,179 @@
+:root {
+    font-size: min(calc(0.7em + 1vw), 18px);
+    box-sizing: border-box;
+
+    --ff-primary: 'Nunito', sans-serif;
+  
+    --fw-reg: 400;
+    --fw-bold: 700;
+  
+    --clr-white: #fff;
+    --clr-dark: #2B283A;
+    --clr-accent: #72006b;
+    --clr-dark-grey: #918E9B;
+    --clr-light-grey-div: #F5F5F5;
+  
+    --fs-h1: 2rem;
+    --fs-h2: 1.8rem;
+    --fs-body: 1rem;
+    --fs-small: 0.8rem;
+}
+
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--ff-primary);
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1;
+    margin: 0;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+/*****************
+    TYPOGRAPHY
+*****************/
+
+.card__location--country {
+  text-transform: uppercase;
+}
+
+.card__location--link {
+  font-size: var(--fs-small);
+  color: var(--clr-dark-grey);
+}
+
+.card__icon {
+  color: var(--clr-accent)
+}
+
+.card__title {
+  font-family: var(--fw-bold);
+  font-size: var(--fs-h2);
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.card__date {
+  text-align: center;
+  font-weight: var(--fw-bold);
+}
+
+.card__copy {
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+
+hr {
+  border: var(--clr-light-grey-div) 1.5px solid;
+  background-color: var(--clr-light-grey-div);
+  margin: 1em 0;
+  max-width: calc(90% - 2em);
+  margin: 0 auto;
+}
+
+
+/*****************
+     LAYOUT
+*****************/
+
+.header {
+  background-color: var(--clr-accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--clr-white);
+  padding: 1em;
+  gap: 1em;
+  margin-bottom: 3em;
+  width: 100%;
+  text-align: center;
+}
+
+.header__logo {
+  max-width: 50px;
+}
+
+.card-list {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.card * + * {
+  margin-top: .5em;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.card__img {
+  max-width: 70%;
+  align-self: center;
+  border-radius: 10px;
+}
+
+.card__location {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 1em;
+}
+
+/*****************
+     MEDIA QUERY
+*****************/
+
+@media (min-width:600px) {
+
+  :root {
+    font-size: min(calc(0.7em + .8vw), 22px);
+  }
+
+  .card * + * {
+    margin-top: 0;
+  }
+
+  .card {
+    flex-direction: row;
+    gap: 1em;
+  }
+
+  .card__img {
+    max-width: 30%;
+    align-self: flex-start;
+    border-radius: 10px;
+  }
+
+  .card__data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-items: flex-start;
+    gap:.5em;
+  } 
+}
+
