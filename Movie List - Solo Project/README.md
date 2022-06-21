@@ -32,8 +32,8 @@ Users should be able to:
 
 ### Links
 
-- [GitHub Repo](https://github.com/Poukame/Movie-Watchlist)
-- Live Demo : [Movie Search and Watchlist](https://movie-watchlist-api.netlify.app)
+- [GitHub Repo](https://github.com/Poukame/solo-projects-learning/tree/main/Movie%20List%20-%20Solo%20Project)
+- Live Demo : [Movie Search and Watchlist](https://movie-search-watchlist.netlify.app/)
 
 ## My process
 
