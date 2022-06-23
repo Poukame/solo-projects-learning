@@ -1,0 +1,55 @@
+:root {
+    --pink: #fbe6f4ff;
+    --yellow: #fffad1ff;
+    --green: #e1f0e5ff;
+    --blue: #b5caf9ff;
+    --orange: #f5e6db;
+    --raisin: #2b283aff;
+    --grey: #d4d4d4;
+}
+
+body {
+    background-color: var(--raisin);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1em;
+    padding: 2em;
+}
+
+.total-moons-p {
+    font-size: 1.25em;
+    text-transform: uppercase;
+}
+
+main > * + * {
+    margin-top: 1em;
+}
+
+
+@property --num {
+    syntax: '<integer>';
+    initial-value: 0;
+    inherits: false;
+}
+
+.counter {
+    color: yellow;
+    animation: counter 5s ease-in-out forwards;
+    counter-set: num var(--num);
+}
+.counter::after {
+    content: counter(num);
+}
+
+@keyframes counter {
+    from {
+        --num: 0;
+    }
+    to {
+        --num: var(--counterend);
+    }
+}
