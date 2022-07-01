@@ -4,18 +4,16 @@ import Start from './components/Start';
 import Quiz from './components/Quiz';
 import blueblub from './img/blue-bulb.png';
 import yellowblub from './img/yellow-bulb.png';
-import { decode } from 'html-entities';
 import './App.css';
 
-decode('&lt; &gt; &quot; &apos; &amp; &#169; &#8710; &#O39');
-
 function App() {
+
 	const [start, setStart] = useState(true);
 	const [question, setQuestion] = useState([]);
 
 	useEffect(() => {
 		const controller = new AbortController();
-		fetch('https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple', {
+		fetch('https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple&encode=url3986', {
 			signal: controller.signal,
 		})
 			.then((res) => res.json())
