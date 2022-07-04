@@ -17,43 +17,44 @@ function App() {
 			signal: controller.signal,
 		})
 			.then((res) => res.json())
-			.then((data) => setQuestion(data.results));
+			.then((data) => setQuestion(data.results))
 		return () => controller.abort();
 	}, []);
 
-	const createArrayAllAnswers = question.map((items) => {
-		return [...items.incorrect_answers, items.correct_answer];
-	});
-
+	function randomizeAnswers (question) {
+        return question.map(question => ({
+            ...question,
+            allAnswers: shuffle(question.incorrect_answers.concat(question.correct_answer)),
+        }));
+    }
+	
+	//shuffle function
 	function shuffle(array) {
-		array.forEach((array) => {
-			let currentIndex = array.length,
-				randomIndex;
-
-			while (currentIndex != 0) {
-				randomIndex = Math.floor(Math.random() * currentIndex);
-				currentIndex--;
-
-				[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-			}
-		});
-		console.log('array', array);
+		let currentIndex = array.length,  randomIndex;
+		while (currentIndex != 0) {
+			randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex--;
+			[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+		}
 		return array;
 	}
 
-	const allQuestion = question.map((items, index) => {
-		const shuffled = shuffle(createArrayAllAnswers);
-		return <Quiz question={items.question} answers={shuffled[index]} />;
-	});
+	function renderQuestion() {
+		const allQuestion = randomizeAnswers(question)
+		console.log(allQuestion);
+		allQuestion.map((items) => {
+		return <Quiz question={items.question} answers={items.question}/>});
+	}
 
 	return (
 		<div className='app'>
 			<img className='bulb blue' src={blueblub} alt='' />
 			<img className='bulb yellow' src={yellowblub} alt='' />
-
-			<main className='app-container'>{start ? allQuestion : <Start startQuiz={() => setStart(!start)} />}</main>
+			
+			<main className='app-container'>{start ? <Quiz /> : <Start startQuiz={() => setStart(!start)} />}</main>		
 		</div>
 	);
 }
 
 export default App;
+
