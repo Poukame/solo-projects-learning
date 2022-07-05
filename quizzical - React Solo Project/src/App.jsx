@@ -12,13 +12,11 @@ function App() {
 	const [question, setQuestion] = useState([]);
 
 	useEffect(() => {
-		const controller = new AbortController();
-		fetch('https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple&encode=url3986', {
-			signal: controller.signal,
-		})
+		
+		fetch('https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple&encode=url3986')
 			.then((res) => res.json())
-			.then((data) => setQuestion(data.results))
-		return () => controller.abort();
+			.then((data) => setQuestion(randomizeAnswers(data.results)))
+		
 	}, []);
 
 	function randomizeAnswers (question) {
@@ -37,21 +35,21 @@ function App() {
 			[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
 		}
 		return array;
-	}
-
-	function renderQuestion() {
-		const allQuestion = randomizeAnswers(question)
-		console.log(allQuestion);
-		allQuestion.map((items) => {
-		return <Quiz question={items.question} answers={items.question}/>});
-	}
+	}	
+		
+		const allQuestion = question.map((items) => {
+			return (
+		<Quiz question={items.question} answers={items.allAnswers} correct={items.correct_answer}/>
+		)})
+	
+				console.log(question);
 
 	return (
 		<div className='app'>
 			<img className='bulb blue' src={blueblub} alt='' />
 			<img className='bulb yellow' src={yellowblub} alt='' />
 			
-			<main className='app-container'>{start ? <Quiz /> : <Start startQuiz={() => setStart(!start)} />}</main>		
+			<main className='app-container'>{start ? allQuestion : <Start startQuiz={() => setStart(!start)} />}</main>		
 		</div>
 	);
 }
