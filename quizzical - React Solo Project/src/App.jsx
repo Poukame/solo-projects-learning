@@ -5,11 +5,13 @@ import Quiz from './components/Quiz';
 import blueblub from './img/blue-bulb.png';
 import yellowblub from './img/yellow-bulb.png';
 import './App.css';
+import { nanoid } from 'nanoid'
 
 function App() {
 
 	const [start, setStart] = useState(true);
 	const [question, setQuestion] = useState([]);
+
 
 	useEffect(() => {
 		
@@ -37,12 +39,19 @@ function App() {
 		return array;
 	}	
 		
-		const allQuestion = question.map((items) => {
+		const allQuestion = question.map((items, index) => {
 			return (
-		<Quiz question={items.question} answers={items.allAnswers} correct={items.correct_answer}/>
+		<Quiz 	
+			question={items.question}
+			answers={items.allAnswers}
+			correct={items.correct_answer}
+			questionId={nanoid()}
+			// handleClick={(e) => handleClick(e)}
+			// selected={btnToggle}
+			/>
 		)})
-	
-				console.log(question);
+
+
 
 	return (
 		<div className='app'>

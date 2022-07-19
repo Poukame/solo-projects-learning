@@ -157,6 +157,7 @@ main {
 	padding: 0.5em 1em;
 	color: var(--clr-quest-answer);
 	font-weight: var(--fw-med);
+	cursor: pointer;
 }
 
 .quiz--divider {
