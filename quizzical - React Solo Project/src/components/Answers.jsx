@@ -3,36 +3,45 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 
 function Answers({ correctAnswer, allAnswers, questionID }) {
+	
+    const initialState = allAnswers.map((el) => {
+		return {
+			answer: el,
+			questionID: questionID,
+			answerID: nanoid(),
+			isSelected: false,
+		};
+	});
 
-    const initialState = allAnswers.map(el => {
-        return (
-            {
-                answer:el,
-                questionID: questionID,
-                answerID:nanoid(),
-                isSelected: false
-            }
-        )
-    })
-    console.log('~ initialState', initialState);
+	const [answerState, setAnswerState] = useState(initialState);
 
-    const [answerState, setAnswerState] = useState(initialState)
-
-	const [toggleBtn, setToggleBtn] = useState();
-
-	function handleClick(event, answerID, isSelected) {
-		console.log(event);
-		console.log(isSelected);
-        console.log(answerID);
+	function handleClick(answerID, isSelected) {
+		setAnswerState((el) => {
+			return el.map((item) => {
+				return item.answerID === answerID
+					? {
+							...item,
+							isSelected: !isSelected,
+					  }
+					: {
+							...item,
+							isSelected: false,
+					  };
+			});
+		});
 	}
+
+	const style = {
+		backgroundColor: 'var(--clr-btn-select)',
+		border: 'none',
+	};
 
 	const renderBtn = answerState.map((el) => {
 		return (
 			<button
 				className='quiz--btn'
-                answerID={el.answerID}
-				//style={isSelected ? style : {}}
-				onClick={() => handleClick(event, el.answerID, el.isSelected)}
+				style={el.isSelected ? style : {}}
+				onClick={() => handleClick(el.answerID, el.isSelected)}
 			>
 				{decodeURIComponent(el.answer)}
 			</button>
