@@ -1,19 +1,27 @@
 import React from 'react';
+import { useState } from 'react';
 import Button from './Button';
+import { nanoid } from 'nanoid'
 
-function Answers({ answerID, answer, correctAnswer, isSelected, allAnswers }) {
+function Answers({ answer, correctAnswer }) {
 
-	// const renderBtn = allAnswers.map((el) => {
-	// 	return <Button answerID={answerID} answer={answer} correctAnswer={correctAnswer} isSelected={false} />;
-	// });
+            
+    const [toggleBtn, setToggleBtn] = useState([{answerID: '123456', isSelected:false}])
+
+    function handleClick(answerID, isSelected) {
+        console.log(answerID)
+        console.log(isSelected)
+    }
 
 	return (
 		<>
 			<Button 
-            answerID={answerID} 
+            answerID={nanoid()} 
             answer={answer} 
             correctAnswer={correctAnswer} 
-            isSelected={false} />
+            isSelected={toggleBtn}
+            handleClick={(answerID, isSelected) => handleClick(answerID, isSelected)}
+             />
 		</>
 	);
 }

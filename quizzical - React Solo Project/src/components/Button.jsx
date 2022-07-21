@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-function Button({ answerID, answer, isSelected, correctAnswer }) {
+function Button({ answerID, answer, isSelected, correctAnswer, handleClick }) {
 	const style = {
 		backgroundColor: 'var(--clr-btn-select)',
 		border: 'none',

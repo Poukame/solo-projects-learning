@@ -35,9 +35,10 @@ function App() {
 		return array;
 	}
 
-	const renderQuestions = question.map((items) => {
+	const renderQuestions = question.map((items, index) => {
 		return (
 			<Questions
+				key={index}
 				questionSet={items.question}
 				allAnswers={items.allAnswers}
 				correctAnswer={items.correct_answer}

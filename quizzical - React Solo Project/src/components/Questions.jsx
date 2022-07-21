@@ -7,18 +7,12 @@ import Answers from './Answers'
 export default function Questions(props) {
 	const {questionSet, allAnswers, correctAnswer} = props;
 
-	const [btnToggle, setBtnToggle] = useState()
-
-console.log('allAns',allAnswers);
-
 	const renderAnswers = allAnswers.map((el) => {
 		return (
 			<Answers
-				allAnswers={allAnswers}
-				answerID={nanoid()}
+				key={nanoid()}
 				answer={decodeURIComponent(el)}
 				correctAnswer={correctAnswer}
-				isSelected={false}
 			/>
 		)})
 
