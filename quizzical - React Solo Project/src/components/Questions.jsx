@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import Answers from './Answers';
 
+
 export default function Questions(props) {
 	const { questionSet } = props;
 
@@ -13,7 +14,7 @@ export default function Questions(props) {
 				<div className='quiz__btn-wrapper'>
 					<Answers 
 					key={nanoid()} 
-					answerID={nanoid()} 
+					questionID={nanoid()} 
 					correctAnswer={el.correct_answer} 
 					allAnswers={el.allAnswers} />
 				</div>

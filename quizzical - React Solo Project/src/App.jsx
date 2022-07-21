@@ -4,37 +4,17 @@ import Start from './components/Start';
 import Questions from './components/Questions';
 import blueblub from './img/blue-bulb.png';
 import yellowblub from './img/yellow-bulb.png';
-import './App.css';
+import randomizeAnswers from './utils/randomizer';
 
 function App() {
 	const [start, setStart] = useState(true);
 	const [question, setQuestion] = useState([]);
-    console.log('~ question', question);
 
 	useEffect(() => {
 		fetch('https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple&encode=url3986')
 			.then((res) => res.json())
 			.then((data) => setQuestion(randomizeAnswers(data.results)));
 	}, []);
-
-	function randomizeAnswers(question) {
-		return question.map((question) => ({
-			...question,
-			allAnswers: shuffle(question.incorrect_answers.concat(question.correct_answer)),
-		}));
-	}
-
-	//shuffle function
-	function shuffle(array) {
-		let currentIndex = array.length,
-			randomIndex;
-		while (currentIndex != 0) {
-			randomIndex = Math.floor(Math.random() * currentIndex);
-			currentIndex--;
-			[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-		}
-		return array;
-	}
 
 	return (
 		<div className='app'>
