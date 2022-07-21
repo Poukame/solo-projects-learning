@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 
 function Answers({ correctAnswer, allAnswers }) {
-	console.log(allAnswers);
 
 	const [toggleBtn, setToggleBtn] = useState([{ answerID: '12348856', isSelected: false }]);
 
@@ -17,7 +16,6 @@ function Answers({ correctAnswer, allAnswers }) {
 			<button
 				className='quiz--btn'
 				answerID={nanoid()}
-				correctAnswer={correctAnswer}
 				//style={isSelected ? style : {}}
 				//onClick={() => handleClick(answerID, isSelected)}
 			>

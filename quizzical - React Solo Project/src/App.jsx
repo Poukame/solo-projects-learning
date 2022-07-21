@@ -9,6 +9,7 @@ import './App.css';
 function App() {
 	const [start, setStart] = useState(true);
 	const [question, setQuestion] = useState([]);
+    console.log('~ question', question);
 
 	useEffect(() => {
 		fetch('https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple&encode=url3986')
@@ -35,23 +36,12 @@ function App() {
 		return array;
 	}
 
-	const renderQuestions = question.map((items, index) => {
-		return (
-			<Questions
-				key={index}
-				questionSet={items.question}
-				allAnswers={items.allAnswers}
-				correctAnswer={items.correct_answer}
-			/>
-		);
-	});
-
 	return (
 		<div className='app'>
 			<img className='bulb blue' src={blueblub} alt='' />
 			<img className='bulb yellow' src={yellowblub} alt='' />
 
-			<main className='app-container'>{start ? renderQuestions : <Start startQuiz={() => setStart(!start)} />}</main>
+			<main className='app-container'>{start ? <Questions questionSet={question} /> : <Start startQuiz={() => setStart(!start)} />}</main>
 		</div>
 	);
 }

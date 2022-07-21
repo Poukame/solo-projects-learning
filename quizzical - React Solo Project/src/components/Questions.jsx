@@ -1,33 +1,29 @@
 import React from 'react';
 import { useState } from 'react';
-import { nanoid } from 'nanoid'
-import Answers from './Answers'
-
+import { nanoid } from 'nanoid';
+import Answers from './Answers';
 
 export default function Questions(props) {
-	const {questionSet, allAnswers, correctAnswer} = props;
+	const { questionSet } = props;
 
-	// const renderAnswers = allAnswers.map((el) => {
-	// 	return (
-	// 		<Answers
-	// 			key={nanoid()}
-	// 			answer={decodeURIComponent(el)}
-	// 			correctAnswer={correctAnswer}
-	// 			allAnswers={allAnswers}
-	// 		/>
-	// 	)})
+	const renderQuestions = questionSet.map((el) => {
+		return (
+			<div className={`quiz-container`}>
+				<h2 className='quiz__question'>{decodeURIComponent(el.question)}</h2>
+				<div className='quiz__btn-wrapper'>
+					<Answers 
+					key={nanoid()} 
+					answerID={nanoid()} 
+					correctAnswer={el.correct_answer} 
+					allAnswers={el.allAnswers} />
+				</div>
+				<hr className='quiz--divider'></hr>
+			</div>
+		);
+	});
 
 	return (
-		<div className={`quiz-container`}>
-			<h2 className='quiz__question'>{decodeURIComponent(questionSet)}</h2>
-			<div className='quiz__btn-wrapper'>
-				<Answers 
-				
-				correctAnswer={correctAnswer}
-				allAnswers={allAnswers}
-				/>
-			</div>
-			<hr className='quiz--divider'></hr>
-		</div>
-	);
+		<>
+		{renderQuestions}
+		</>)
 }
