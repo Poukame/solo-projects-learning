@@ -6,6 +6,7 @@ import blueCircle from './img/blue-bulb.png';
 import yellowCircle from './img/yellow-bulb.png';
 import randomizeAnswers from './utils/randomizer';
 
+
 function App() {
 	const [start, setStart] = useState(true);
 	const [question, setQuestion] = useState([]);
