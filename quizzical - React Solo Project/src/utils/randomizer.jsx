@@ -3,7 +3,7 @@ import shuffle from './shuffle'
 function randomizeAnswers(question) {
     return question.map((question) => ({
         ...question,
-        allAnswers: shuffle(question.incorrect_answers.concat(question.correct_answer)),
+        allAnswers: shuffle([...question.incorrect_answers, question.correct_answer]),
     }));
 }
 

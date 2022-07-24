@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 
 function Answers({ correctAnswer, allAnswers, questionID }) {
-	
-    const initialState = allAnswers.map((el) => {
+	const initialState = allAnswers.map((el) => {
 		return {
 			answer: el,
 			questionID: questionID,
@@ -39,6 +38,7 @@ function Answers({ correctAnswer, allAnswers, questionID }) {
 	const renderBtn = answerState.map((el) => {
 		return (
 			<button
+				key={nanoid()}
 				className='quiz--btn'
 				style={el.isSelected ? style : {}}
 				onClick={() => handleClick(el.answerID, el.isSelected)}
