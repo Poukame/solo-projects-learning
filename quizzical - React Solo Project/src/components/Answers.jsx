@@ -16,7 +16,6 @@ function Answers({ correctAnswer, allAnswers, questionID, checkAnswer }) {
 	});
 
 	const [answerState, setAnswerState] = useState(initialState);
-    console.log('~ answerState', answerState);
 
 	function handleClick(answerID, isSelected) {
 		isSelected = !isSelected
@@ -49,7 +48,7 @@ function Answers({ correctAnswer, allAnswers, questionID, checkAnswer }) {
 				key={nanoid()}
 				className='quiz--btn'
 				style={el.isSelected ? style : {}}
-				onClick={() => {handleClick(el.answerID, el.isSelected); checkAnswer(questionID, answerState)}}
+				onClick={() => {handleClick(el.answerID, el.isSelected)}}
 			>
 				{decodeURIComponent(el.answer)}
 			</button>

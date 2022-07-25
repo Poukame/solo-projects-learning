@@ -6,17 +6,16 @@ import blueCircle from './img/blue-bulb.png';
 import yellowCircle from './img/yellow-bulb.png';
 import randomizeAnswers from './utils/randomizer';
 
-
 function App() {
 	const [start, setStart] = useState(true);
-	const [question, setQuestion] = useState([]);
+	const [questionDB, setQuestionDB] = useState([]);
 
 	useEffect(() => {
 		fetch(
 			'https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple&encode=url3986'
 		)
 			.then((res) => res.json())
-			.then((data) => setQuestion(randomizeAnswers(data.results)));
+			.then((data) => setQuestionDB(randomizeAnswers(data.results)));
 	}, []);
 
 	return (
@@ -25,7 +24,7 @@ function App() {
 			<img className='bulb yellow' src={yellowCircle} alt='' />
 			<main className='app-container'>
 				{start ? (
-					<Questions questionSet={question} />
+					<Questions questionDB={questionDB} />
 				) : (
 					<Start startQuiz={() => setStart(!start)} />
 				)}
