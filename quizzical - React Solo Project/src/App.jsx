@@ -10,6 +10,7 @@ function App() {
 	const [start, setStart] = useState(true);
 	const [questionDB, setQuestionDB] = useState([]);
 
+
 	useEffect(() => {
 		fetch(
 			'https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple&encode=url3986'
@@ -18,13 +19,15 @@ function App() {
 			.then((data) => setQuestionDB(randomizeAnswers(data.results)));
 	}, []);
 
+
+
 	return (
 		<div className='app'>
 			<img className='bulb blue' src={blueCircle} alt='' />
 			<img className='bulb yellow' src={yellowCircle} alt='' />
 			<main className='app-container'>
 				{start ? (
-					<Questions questionDB={questionDB} />
+					<Questions questionDB={questionDB}/>
 				) : (
 					<Start startQuiz={() => setStart(!start)} />
 				)}

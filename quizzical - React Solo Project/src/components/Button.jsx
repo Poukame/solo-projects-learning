@@ -1,22 +1,31 @@
 // import React from 'react';
 // import { useState } from 'react';
+// import Answers from './Answers';
 
-// function Button({ answerID, answer, isSelected, correctAnswer, handleClick }) {
-// 	const style = {
-// 		backgroundColor: 'var(--clr-btn-select)',
-// 		border: 'none',
-// 	};
+// export default function Button() {
 
-// 	return (
-// 		<button
-// 			className='quiz--btn'
-// 			answerid={answerID}
-// 			style={isSelected ? style : {}}
-// 			onClick={() => handleClick(answerID, isSelected)}
-// 		>
-// 			{answer}
-// 		</button>
-// 	);
+// const [test, setTest] = useState(true)
+
+// function checkAnswer(questionID, answer) {	
+//     console.log(questionID)
+//     setTest(!test)
+//     // setQuestionSet(el => {
+//     // 	return el.map(el => {
+//     // 		return el.questionID === questionID ?
+//     // 		{
+//     // 			...el,
+//     // 			answerPoint: answer ? 1 : 0,
+//     // 		} :
+//     // 		el
+//     // 	})
+//     // })
 // }
 
-//  export default Button;
+// return (
+//     <>
+//     <Answers 
+//         checkAnswer={checkAnswer}
+//     />
+//     </>
+// )}
+
