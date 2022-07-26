@@ -14,7 +14,7 @@ export default function Questions({ questionDB }) {
 			question: el.question,
 		};
 	});
-
+	// new branch
 	const [questionSet, setQuestionSet] = useState(initialQuestionState);
 	//const [test, setTest] = useState(true)
 	useEffect(() => {setQuestionSet(initialQuestionState)}, [questionDB])
