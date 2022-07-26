@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useEffect } from 'react';
 
-function Answers({ correctAnswer, allAnswers, questionID, checkAnswer }) {
-    
+function Answers({ correctAnswer, allAnswers, questionID, saveToLocalStorage, status }) {
+ 
 	const initialState = allAnswers.map((el) => {
 		return {
 			answer: el,
@@ -17,6 +17,8 @@ function Answers({ correctAnswer, allAnswers, questionID, checkAnswer }) {
 	});
 
 	const [answerState, setAnswerState] = useState(initialState);
+  
+	
 
 	function handleClick(answerID, questionID, answer, isSelected) {
 		
@@ -35,8 +37,10 @@ function Answers({ correctAnswer, allAnswers, questionID, checkAnswer }) {
 					  };
 			});
 		});
-		setTimeout(() => checkAnswer(questionID, answerState[0].correctAnswer === answer), 5000) 
+		//calculateScore(questionID, answerState[0].correctAnswer === answer)
 	}
+
+	useEffect(() => {saveToLocalStorage(questionID, answerState)}, [answerState])
 
 	function style(state) {
         if(state) {

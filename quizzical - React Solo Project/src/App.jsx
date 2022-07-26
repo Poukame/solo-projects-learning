@@ -7,7 +7,7 @@ import yellowCircle from './img/yellow-bulb.png';
 import randomizeAnswers from './utils/randomizer';
 
 function App() {
-	const [start, setStart] = useState(true);
+	const [gameStatus, setGameStatus] = useState({status: 'splash'});
 	const [questionDB, setQuestionDB] = useState([]);
 
 
@@ -19,17 +19,23 @@ function App() {
 			.then((data) => setQuestionDB(randomizeAnswers(data.results)));
 	}, []);
 
+	function toQuiz() {
+		setGameStatus({status: 'quiz'})
+	}
 
+	function endGame() {
+		setGameStatus({status: 'end'})
+	}
 
 	return (
 		<div className='app'>
 			<img className='bulb blue' src={blueCircle} alt='' />
 			<img className='bulb yellow' src={yellowCircle} alt='' />
 			<main className='app-container'>
-				{start ? (
-					<Questions questionDB={questionDB}/>
+				{gameStatus.status === 'splash' ? (
+					<Start changeStatus={toQuiz} />
 				) : (
-					<Start startQuiz={() => setStart(!start)} />
+					<Questions questionDB={questionDB} changeStatus={endGame} status={gameStatus.status}/>
 				)}
 			</main>
 		</div>

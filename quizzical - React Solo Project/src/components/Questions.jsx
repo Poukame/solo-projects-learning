@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import Answers from './Answers';
 
-export default function Questions({ questionDB }) {
+export default function Questions({ questionDB, changeStatus, status }) {
+
 
 	const initialQuestionState = questionDB.map((el) => {
 		return {
@@ -14,9 +15,9 @@ export default function Questions({ questionDB }) {
 			question: el.question,
 		};
 	});
-	// new branch
+	
 	const [questionSet, setQuestionSet] = useState(initialQuestionState);
-	//const [test, setTest] = useState(true)
+	
 	useEffect(() => {setQuestionSet(initialQuestionState)}, [questionDB])
 
 	const renderQuestions = questionSet.map((el) => {
@@ -29,7 +30,8 @@ export default function Questions({ questionDB }) {
 						questionID={el.questionID}
 						correctAnswer={el.correctAnswer}
 						allAnswers={el.allAnswers}
-						checkAnswer={checkAnswer}
+						saveToLocalStorage={saveToLocalStorage}
+						status={status}
 					/>
 				</div>
 				<hr className='quiz--divider'></hr>
@@ -38,20 +40,24 @@ export default function Questions({ questionDB }) {
 	});
 
 
-	function checkAnswer(questionID, answer) {	
-		console.log(answer)
-		//setTest(!test)
-		// setQuestionSet(el => {
-		// 	return el.map(el => {
-		// 		return el.questionID === questionID ?
-		// 		{
-		// 			...el,
-		// 			answerPoint: answer ? 1 : 0,
-		// 		} :
-		// 		el
-		// 	})
-		// })
-	}
+	function saveToLocalStorage(questionID, answerState) {	
+        console.log('~ answerState', answerState);
+		
+		const answerID = answerState.find(({isSelected}) => isSelected === true)
+        console.log('~ answerID', answerID);
+		
+		const copyData = questionSet.map(el => {
+				return el.questionID === questionID ?
+				{
+					...el,
+					isSelected: answerID && answerID.isSelected,
+					isCorrect: answerID && answerID.isCorrect
+				} :
+				el
+			})
+			console.log('copy', copyData)
+			return copyData
+		}
 
 //console.log('question set',questionSet);
 
@@ -60,7 +66,7 @@ export default function Questions({ questionDB }) {
 			{renderQuestions}
 			<div className='result-container'>
 				<h2 className='result-text'>You scored 3/5 correct answers</h2>
-				<button className='check-btn'>Check Answers</button>
+				<button className='check-btn' onClick={changeStatus}>{status === 'end' ? 'Try Again' : 'Check Answers'}</button>
 			</div>
 		</>
 	);
