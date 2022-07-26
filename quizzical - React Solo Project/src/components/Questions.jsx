@@ -41,12 +41,11 @@ export default function Questions({ questionDB, changeStatus, status }) {
 
 
 	function saveToLocalStorage(questionID, answerState) {	
-        console.log('~ answerState', answerState);
-		
+        
 		const answerID = answerState.find(({isSelected}) => isSelected === true)
-        console.log('~ answerID', answerID);
+		const question = JSON.parse(localStorage.getItem('savedAnswers')) || questionSet
 		
-		const copyData = questionSet.map(el => {
+		const copyData = question.map(el => {
 				return el.questionID === questionID ?
 				{
 					...el,
@@ -55,11 +54,10 @@ export default function Questions({ questionDB, changeStatus, status }) {
 				} :
 				el
 			})
-			console.log('copy', copyData)
+
+			localStorage.setItem('savedAnswers', JSON.stringify(copyData))
 			return copyData
 		}
-
-//console.log('question set',questionSet);
 
 	return (
 		<>
