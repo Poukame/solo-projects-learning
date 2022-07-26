@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Start from './components/Start';
 import Questions from './components/Questions';
 import blueCircle from './img/blue-bulb.png';
@@ -7,9 +6,8 @@ import yellowCircle from './img/yellow-bulb.png';
 import randomizeAnswers from './utils/randomizer';
 
 function App() {
-	const [gameStatus, setGameStatus] = useState({status: 'splash'});
+	const [gameStatus, setGameStatus] = useState({ status: 'start', reset: true });
 	const [questionDB, setQuestionDB] = useState([]);
-
 
 	useEffect(() => {
 		fetch(
@@ -17,19 +15,19 @@ function App() {
 		)
 			.then((res) => res.json())
 			.then((data) => setQuestionDB(randomizeAnswers(data.results)));
-	}, []);
+	}, [gameStatus.reset]);
 
 	function toQuiz() {
-		setGameStatus({status: 'quiz'})
+		setGameStatus((prev) => ({ ...prev, status: 'quiz' }));
 	}
 
 	function endGame() {
-		(gameStatus.status !== 'end') ? setGameStatus({status: 'end'}) : reset() ;
+		gameStatus.status !== 'end' ? setGameStatus((prev) => ({ ...prev, status: 'end' })) : reset();
 	}
 
 	function reset() {
-		localStorage.removeItem('savedAnswers')
-		setGameStatus({status: 'splash'})
+		localStorage.removeItem('savedAnswers');
+		setGameStatus((prev) => ({ status: 'start', reset: !prev.reset }));
 	}
 
 	return (
@@ -37,10 +35,10 @@ function App() {
 			<img className='bulb blue' src={blueCircle} alt='' />
 			<img className='bulb yellow' src={yellowCircle} alt='' />
 			<main className='app-container'>
-				{gameStatus.status === 'splash' ? (
+				{gameStatus.status === 'start' ? (
 					<Start changeStatus={toQuiz} />
 				) : (
-					<Questions questionDB={questionDB} changeStatus={endGame} status={gameStatus.status}/>
+					<Questions questionDB={questionDB} changeStatus={endGame} status={gameStatus.status} />
 				)}
 			</main>
 		</div>

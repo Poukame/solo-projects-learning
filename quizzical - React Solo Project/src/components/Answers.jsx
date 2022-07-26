@@ -4,9 +4,9 @@ import { nanoid } from 'nanoid';
 import { useEffect } from 'react';
 
 function Answers({ correctAnswer, allAnswers, questionID, saveToLocalStorage, status }) {
-
-
- 
+	
+	const savedAnwers = JSON.parse(localStorage.getItem('savedAnswers'))
+    console.log('~ savedAnwers', savedAnwers);
 	const initialState = allAnswers.map((el) => {
 		return {
 			answer: el,
@@ -19,6 +19,7 @@ function Answers({ correctAnswer, allAnswers, questionID, saveToLocalStorage, st
 	});
 
 	const [answerState, setAnswerState] = useState(initialState);
+    console.log('~ answerState', answerState);
   
 	
 

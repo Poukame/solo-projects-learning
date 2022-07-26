@@ -4,8 +4,6 @@ import { nanoid } from 'nanoid';
 import Answers from './Answers';
 
 export default function Questions({ questionDB, changeStatus, status }) {
-
-
 	const initialQuestionState = questionDB.map((el) => {
 		return {
 			key: nanoid(),
@@ -13,15 +11,20 @@ export default function Questions({ questionDB, changeStatus, status }) {
 			allAnswers: el.allAnswers,
 			correctAnswer: el.correct_answer,
 			question: el.question,
+			isSelected: null,
+			isCorrect: false,
+			point: 0,
 		};
 	});
-	
+
 	const [questionSet, setQuestionSet] = useState(initialQuestionState);
-	useEffect(() => {setQuestionSet(initialQuestionState)}, [questionDB]);
+	useEffect(() => {
+		setQuestionSet(initialQuestionState);
+	}, [questionDB]);
 
-	const savedAnwers = JSON.parse(localStorage.getItem('savedAnswers'))
+	const savedAnwers = JSON.parse(localStorage.getItem('savedAnswers'));
 
-	const totalScore =  savedAnwers && savedAnwers.reduce((acc, cur) => acc + cur.point, 0)
+	const totalScore = savedAnwers && savedAnwers.reduce((acc, cur) => acc + cur.point, 0);
 
 	const renderQuestions = questionSet.map((el) => {
 		return (
@@ -42,33 +45,34 @@ export default function Questions({ questionDB, changeStatus, status }) {
 		);
 	});
 
+	function saveToLocalStorage(questionID, answerState) {
+		const answer = answerState.find(({ isSelected }) => isSelected === true);
+		const question = answer ? JSON.parse(localStorage.getItem('savedAnswers')) : questionSet;
 
-	function saveToLocalStorage(questionID, answerState) {	
-        
-		const answer = answerState.find(({isSelected}) => isSelected === true)
-		const question = (answer) ? JSON.parse(localStorage.getItem('savedAnswers')) : questionSet
-		
-		const copyData = question.map(el => {
-				return el.questionID === questionID ?
-				{
-					...el,
-					isSelected: answer && answer.answerID,
-					isCorrect: answer && answer.isCorrect,
-					point: answer && (answer.isSelected === answer.isCorrect) ? 1 : 0
-				} :
-				el
-			})
-
-			localStorage.setItem('savedAnswers', JSON.stringify(copyData))
-			return copyData
-		}
+		const copyData = question.map((el) => {
+			return el.questionID === questionID
+				? {
+						...el,
+						isSelected: answer && answer.answerID,
+						isCorrect: answer && answer.isCorrect,
+						point: answer && answer.isSelected === answer.isCorrect ? 1 : 0,
+				  }
+				: el;
+		});
+		localStorage.setItem('savedAnswers', JSON.stringify(copyData));
+		return copyData;
+	}
 
 	return (
 		<>
 			{renderQuestions}
 			<div className='result-container'>
-				{status === 'end' && <h2 className='result-text'>You scored {totalScore}/5 correct answers</h2>}
-				<button className='check-btn' onClick={changeStatus}>{status === 'end' ? 'Try Again' : 'Check Answers'}</button>
+				{status === 'end' && (
+					<h2 className='result-text'>You scored {totalScore}/5 correct answers</h2>
+				)}
+				<button className='check-btn' onClick={changeStatus}>
+					{status === 'end' ? 'Try Again' : 'Check Answers'}
+				</button>
 			</div>
 		</>
 	);
