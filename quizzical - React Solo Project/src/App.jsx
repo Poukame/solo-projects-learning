@@ -24,7 +24,12 @@ function App() {
 	}
 
 	function endGame() {
-		setGameStatus({status: 'end'})
+		(gameStatus.status !== 'end') ? setGameStatus({status: 'end'}) : reset() ;
+	}
+
+	function reset() {
+		localStorage.removeItem('savedAnswers')
+		setGameStatus({status: 'splash'})
 	}
 
 	return (

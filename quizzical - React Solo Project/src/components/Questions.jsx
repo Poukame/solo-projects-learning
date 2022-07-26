@@ -17,8 +17,11 @@ export default function Questions({ questionDB, changeStatus, status }) {
 	});
 	
 	const [questionSet, setQuestionSet] = useState(initialQuestionState);
-	
-	useEffect(() => {setQuestionSet(initialQuestionState)}, [questionDB])
+	useEffect(() => {setQuestionSet(initialQuestionState)}, [questionDB]);
+
+	const savedAnwers = JSON.parse(localStorage.getItem('savedAnswers'))
+
+	const totalScore =  savedAnwers && savedAnwers.reduce((acc, cur) => acc + cur.point, 0)
 
 	const renderQuestions = questionSet.map((el) => {
 		return (
@@ -41,7 +44,6 @@ export default function Questions({ questionDB, changeStatus, status }) {
 
 
 	function saveToLocalStorage(questionID, answerState) {	
-    console.log('~ answerState', answerState);
         
 		const answer = answerState.find(({isSelected}) => isSelected === true)
 		const question = (answer) ? JSON.parse(localStorage.getItem('savedAnswers')) : questionSet
@@ -65,7 +67,7 @@ export default function Questions({ questionDB, changeStatus, status }) {
 		<>
 			{renderQuestions}
 			<div className='result-container'>
-				<h2 className='result-text'>You scored 3/5 correct answers</h2>
+				{status === 'end' && <h2 className='result-text'>You scored {totalScore}/5 correct answers</h2>}
 				<button className='check-btn' onClick={changeStatus}>{status === 'end' ? 'Try Again' : 'Check Answers'}</button>
 			</div>
 		</>

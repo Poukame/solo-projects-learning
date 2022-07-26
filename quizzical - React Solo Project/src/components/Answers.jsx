@@ -4,6 +4,8 @@ import { nanoid } from 'nanoid';
 import { useEffect } from 'react';
 
 function Answers({ correctAnswer, allAnswers, questionID, saveToLocalStorage, status }) {
+
+
  
 	const initialState = allAnswers.map((el) => {
 		return {
@@ -37,10 +39,9 @@ function Answers({ correctAnswer, allAnswers, questionID, saveToLocalStorage, st
 					  };
 			});
 		});
-		//calculateScore(questionID, answerState[0].correctAnswer === answer)
 	}
 
-	useEffect(() => {saveToLocalStorage(questionID, answerState)}, [answerState])
+	useEffect(() => {(status !== 'end') &&  saveToLocalStorage(questionID, answerState)}, [answerState])
 
 	function style(state) {
         if(state) {
@@ -49,7 +50,6 @@ function Answers({ correctAnswer, allAnswers, questionID, saveToLocalStorage, st
 			border: 'none',
 		}}
 	}
-
 
 	const renderBtn = answerState.map((el) => {
 		return (
