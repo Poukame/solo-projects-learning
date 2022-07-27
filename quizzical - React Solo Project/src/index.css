@@ -180,3 +180,10 @@ main {
 	justify-content: space-evenly;
 	align-items: baseline;
 }
+
+select,
+label {
+	display: block;
+	margin: 0 auto;
+	margin-block: 1em;
+}

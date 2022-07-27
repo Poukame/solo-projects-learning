@@ -16,6 +16,7 @@ function App() {
 		)
 			.then((res) => res.json())
 			.then((data) => setQuestionDB(randomizeAnswers(data.results)));
+			///add catch error
 	}, [gameStatus.reset]);
 
 
@@ -40,7 +41,7 @@ function App() {
 			<img className='bulb yellow' src={yellowCircle} alt='' />
 			<main className='app-container'>
 				{gameStatus.status === 'start' ? (
-					<Start changeStatus={toQuiz} />
+					<Start changeStatus={toQuiz}></Start> 
 				) : (
 					<Questions questionDB={questionDB} changeStatus={endGame} status={gameStatus.status} />
 				)}
