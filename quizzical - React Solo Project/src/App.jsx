@@ -10,6 +10,7 @@ function App() {
 	const [questionDB, setQuestionDB] = useState([]);
 
 	useEffect(() => {
+		localStorage.removeItem('savedAnswers');
 		fetch(
 			'https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple&encode=url3986'
 		)
@@ -17,6 +18,7 @@ function App() {
 			.then((data) => setQuestionDB(randomizeAnswers(data.results)));
 	}, [gameStatus.reset]);
 
+	//see if i can use a reducer
 	function toQuiz() {
 		setGameStatus((prev) => ({ ...prev, status: 'quiz' }));
 	}

@@ -38,6 +38,7 @@ export default function Questions({ questionDB, changeStatus, status }) {
 						allAnswers={el.allAnswers}
 						saveToLocalStorage={saveToLocalStorage}
 						status={status}
+						savedAnswersDetails={savedAnwers}
 					/>
 				</div>
 				<hr className='quiz--divider'></hr>
@@ -53,7 +54,7 @@ export default function Questions({ questionDB, changeStatus, status }) {
 			return el.questionID === questionID
 				? {
 						...el,
-						isSelected: answer && answer.answerID,
+						isSelected: answer && answer.answer,
 						isCorrect: answer && answer.isCorrect,
 						point: answer && answer.isSelected === answer.isCorrect ? 1 : 0,
 				  }
