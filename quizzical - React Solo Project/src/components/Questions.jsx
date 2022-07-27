@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import Answers from './Answers';
 
-export default function Questions({ questionDB }) {
-
+export default function Questions({ questionDB, changeStatus, status }) {
 	const initialQuestionState = questionDB.map((el) => {
 		return {
 			key: nanoid(),
@@ -12,12 +11,20 @@ export default function Questions({ questionDB }) {
 			allAnswers: el.allAnswers,
 			correctAnswer: el.correct_answer,
 			question: el.question,
+			isSelected: null,
+			isCorrect: false,
+			point: 0,
 		};
 	});
 
 	const [questionSet, setQuestionSet] = useState(initialQuestionState);
-	//const [test, setTest] = useState(true)
-	useEffect(() => {setQuestionSet(initialQuestionState)}, [questionDB])
+	useEffect(() => {
+		setQuestionSet(initialQuestionState);
+	}, [questionDB]);
+
+	const savedAnwers = JSON.parse(localStorage.getItem('savedAnswers'));
+
+	const totalScore = savedAnwers && savedAnwers.reduce((acc, cur) => acc + cur.point, 0);
 
 	const renderQuestions = questionSet.map((el) => {
 		return (
@@ -29,7 +36,9 @@ export default function Questions({ questionDB }) {
 						questionID={el.questionID}
 						correctAnswer={el.correctAnswer}
 						allAnswers={el.allAnswers}
-						checkAnswer={checkAnswer}
+						saveToLocalStorage={saveToLocalStorage}
+						status={status}
+						savedAnswersDetails={savedAnwers}
 					/>
 				</div>
 				<hr className='quiz--divider'></hr>
@@ -37,30 +46,34 @@ export default function Questions({ questionDB }) {
 		);
 	});
 
+	function saveToLocalStorage(questionID, answerState) {
+		const answer = answerState.find(({ isSelected }) => isSelected === true);
+		const question = answer ? JSON.parse(localStorage.getItem('savedAnswers')) : questionSet;
 
-	function checkAnswer(questionID, answer) {	
-		console.log(answer)
-		//setTest(!test)
-		// setQuestionSet(el => {
-		// 	return el.map(el => {
-		// 		return el.questionID === questionID ?
-		// 		{
-		// 			...el,
-		// 			answerPoint: answer ? 1 : 0,
-		// 		} :
-		// 		el
-		// 	})
-		// })
+		const copyData = question.map((el) => {
+			return el.questionID === questionID
+				? {
+						...el,
+						isSelected: answer && answer.answer,
+						isCorrect: answer && answer.isCorrect,
+						point: answer && answer.isSelected === answer.isCorrect ? 1 : 0,
+				  }
+				: el;
+		});
+		localStorage.setItem('savedAnswers', JSON.stringify(copyData));
+		return copyData;
 	}
-
-//console.log('question set',questionSet);
 
 	return (
 		<>
 			{renderQuestions}
 			<div className='result-container'>
-				<h2 className='result-text'>You scored 3/5 correct answers</h2>
-				<button className='check-btn'>Check Answers</button>
+				{status === 'end' && (
+					<h2 className='result-text'>You scored {totalScore}/5 correct answers</h2>
+				)}
+				<button className='check-btn' onClick={changeStatus}>
+					{status === 'end' ? 'Try Again' : 'Check Answers'}
+				</button>
 			</div>
 		</>
 	);

@@ -1,14 +1,14 @@
 import React from "react";
 
 
-export default function Start(props) {
+export default function Start({ changeStatus }) {
 
     return (
         <div className="start-screen">
 
         <h1>Quizzical</h1>
         <p>Some description here</p>
-        <button className='start-btn' onClick={props.startQuiz}>Start Quiz</button>
+        <button className='start-btn' onClick={changeStatus}>Start Quiz</button>
 
         </div>
 
