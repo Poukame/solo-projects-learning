@@ -51,6 +51,8 @@ function Answers({
 			savedAnswersDetails &&
 			savedAnswersDetails.find(({ questionID }) => questionID === questionID2);
 
+// see if I can use react reducer here
+
 		if (selected && status === 'quiz') {
 			return {
 				backgroundColor: 'var(--clr-btn-select)',
