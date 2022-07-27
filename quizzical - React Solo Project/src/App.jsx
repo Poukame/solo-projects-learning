@@ -18,7 +18,7 @@ function App() {
 			.then((data) => setQuestionDB(randomizeAnswers(data.results)));
 	}, [gameStatus.reset]);
 
-	//see if i can use a reducer
+	//  see if i can use a reducer
 	function toQuiz() {
 		setGameStatus((prev) => ({ ...prev, status: 'quiz' }));
 	}
