@@ -1,34 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-export default function Start({ changeStatus }) {
+export default function Start({ changeStatus, handleChange, formData }) {
 	const [categories, setCategories] = useState([]);
-	const [formData, setFormData] = useState({
-		category: '',
-		catID: 9,
-		difficulty: 'medium',
-		quantity: 5,
-	});
-	console.log('~ formData', formData);
-
-	useEffect(() => {
-		fetch('https://opentdb.com/api_category.php')
-			.then((res) => res.json())
-			.then((data) => setCategories(data.trivia_categories));
-		///add catch error
-	}, []);
-
-	function handleChange(event) {
-		const { name, value, type, valueAsNumber } = event.target;
-		setFormData((prevFormData) => {
-			return {
-				...prevFormData,
-				[name]: name === 'category' ? event.target.firstChild.innerHTML : value,
-				catID: name === 'category' ? value : prevFormData.catID,
-				quantity: type === 'number' ? valueAsNumber : prevFormData.quantity,
-			};
-		});
-	}
+    console.log('~ formData', formData);
 
 	return (
 		<div className='start-screen'>
@@ -37,15 +12,17 @@ export default function Start({ changeStatus }) {
 			<button className='start-btn' onClick={changeStatus}>
 				Start Quiz
 			</button>
+
 			<form>
-				<label for='categories'>Choose a category:</label>
-				<select name='category' id='categories' onChange={handleChange} value={formData.category}>
-					<option value='1'>Volvo</option>
-					<option value='2'>Saab</option>
-					<option value='3'>Mercedes</option>
-					<option value='4'>Audi</option>
+				<label htmlFor='category'>Choose a category:</label>
+				<select name='category' id='category' onChange={handleChange}>
+					<option value='1,Volvo'>Volvo</option>
+					<option value='2,Sabb'>Saab</option>
+					<option value='3,Mercedes'>Mercedes</option>
+					<option value='4,Audi' >Audi</option>
 				</select>
-				<label for='difficulty'>Choose a difficulty:</label>
+
+				<label htmlFor='difficulty'>Choose a difficulty:</label>
 				<select
 					name='difficulty'
 					id='difficulty'
@@ -56,7 +33,8 @@ export default function Start({ changeStatus }) {
 					<option value='medium'>Medium</option>
 					<option value='hard'>Hard</option>
 				</select>
-				<label for='quantity'>How many questions? (between 3 and 10):</label>
+
+				<label htmlFor='quantity'>How many questions? (between 3 and 10):</label>
 				<input
 					type='number'
 					id='quantity'
