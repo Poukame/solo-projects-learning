@@ -8,12 +8,16 @@ import randomizeAnswers from './utils/randomizer';
 function App() {
 	const [gameStatus, setGameStatus] = useState({ status: 'start', reset: true });
 	const [questionDB, setQuestionDB] = useState([]);
-	const [formData, setFormData] = useState({
-		category: '',
-		catID: 1,
+	const [categories, setCategories] = useState([]);
+
+	const defaultOptionValue = {
+		catID: 9,
 		difficulty: 'medium',
 		quantity: 5,
-	});
+	}
+
+	const [formData, setFormData] = useState(defaultOptionValue);
+  
 	
 	useEffect(() => {
 		fetch('https://opentdb.com/api_category.php')
@@ -23,15 +27,14 @@ function App() {
 	}, []);
 
 	function handleChange(event) {
-        console.log('~ event', event);
 		const { name, value, type, valueAsNumber } = event.target;
 		setFormData((prevFormData) => {
 			return {
 				...prevFormData,
-				difficulty: name === 'difficulty' ? value : prevFormData.difficulty,
-				category: name === 'category' ? value.split(',')[1] : prevFormData.category,
-				catID: name === 'category' ? value.split(',')[0] : prevFormData.catID,
-				quantity: type === 'number' ? valueAsNumber : prevFormData.quantity,
+				[name]: type === 'number' ? valueAsNumber : value,
+				//difficulty: name === 'difficulty' ? value : prevFormData.difficulty,
+				//catID: name === 'category' ? value : prevFormData.catID,
+				//quantity: type === 'number' ? valueAsNumber : prevFormData.quantity,
 			};
 		});
 	}
@@ -39,7 +42,7 @@ function App() {
 	useEffect(() => {
 		localStorage.removeItem('savedAnswers');
 		fetch(
-			'https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple&encode=url3986'
+			`https://opentdb.com/api.php?amount=${formData.quantity}&category=${formData.catID}&difficulty=${formData.difficulty}&type=multiple&encode=url3986`
 		)
 			.then((res) => res.json())
 			.then((data) => setQuestionDB(randomizeAnswers(data.results)));
@@ -49,8 +52,12 @@ function App() {
 
 	//see if i can use a reducer
 
+	function toOptions() {
+		setGameStatus((prev) => ({ ...prev, status: 'option' }));
+	}
+
 	function toQuiz() {
-		setGameStatus((prev) => ({ ...prev, status: 'quiz' }));
+		setGameStatus((prev) => ({ status: 'quiz', reset: !prev.reset }));		 
 	}
 
 	function endGame() {
@@ -60,6 +67,7 @@ function App() {
 	function reset() {
 		localStorage.removeItem('savedAnswers');
 		setGameStatus((prev) => ({ status: 'start', reset: !prev.reset }));
+		setFormData(defaultOptionValue)
 	}
 
 	return (
@@ -67,11 +75,8 @@ function App() {
 			<img className='bulb blue' src={blueCircle} alt='' />
 			<img className='bulb yellow' src={yellowCircle} alt='' />
 			<main className='app-container'>
-				{gameStatus.status === 'start' ? (
-					<Start changeStatus={toQuiz} handleChange={handleChange} formData={formData}></Start> 
-				) : (
-					<Questions questionDB={questionDB} changeStatus={endGame} status={gameStatus.status} />
-				)}
+				{(gameStatus.status === 'start' || gameStatus.status === 'option') && <Start changeStatus={toQuiz} handleChange={handleChange} formData={formData} categories={categories} toOptions={toOptions}></Start>}
+				{(gameStatus.status === 'quiz' || gameStatus.status === 'end') && <Questions questionDB={questionDB} changeStatus={endGame} status={gameStatus.status} formData={formData} />}
 			</main>
 		</div>
 	);

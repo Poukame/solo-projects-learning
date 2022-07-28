@@ -1,25 +1,27 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { nanoid } from 'nanoid';
 
-export default function Start({ changeStatus, handleChange, formData }) {
-	const [categories, setCategories] = useState([]);
-    console.log('~ formData', formData);
+export default function Start({ changeStatus, handleChange, formData, categories, toOptions }) {
+   
+	
+	const allCategories = categories.map(el => {
+		return (
+			<option value={el.id} key={nanoid()}>{el.name}</option>
+		)
+	}) 
 
 	return (
 		<div className='start-screen'>
 			<h1>Quizzical</h1>
 			<p>Challenge yourself with some challenging questions and see how much you can score!</p>
-			<button className='start-btn' onClick={changeStatus}>
-				Start Quiz
+			<button className='start-btn' onClick={toOptions}>
+				Set Options
 			</button>
-
+		
 			<form>
 				<label htmlFor='category'>Choose a category:</label>
-				<select name='category' id='category' onChange={handleChange}>
-					<option value='1,Volvo'>Volvo</option>
-					<option value='2,Sabb'>Saab</option>
-					<option value='3,Mercedes'>Mercedes</option>
-					<option value='4,Audi' >Audi</option>
+				<select name='catID' id='category' onChange={handleChange}>
+					{allCategories}
 				</select>
 
 				<label htmlFor='difficulty'>Choose a difficulty:</label>
@@ -44,6 +46,9 @@ export default function Start({ changeStatus, handleChange, formData }) {
 					value={formData.quantity}
 					onChange={handleChange}
 				/>
+			<button className='start-btn' onClick={changeStatus}>
+				Start Quiz
+			</button>
 			</form>
 		</div>
 	);

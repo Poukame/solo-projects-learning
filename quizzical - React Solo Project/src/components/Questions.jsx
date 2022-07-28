@@ -2,8 +2,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import Answers from './Answers';
+import Confetti from 'react-confetti'
 
-export default function Questions({ questionDB, changeStatus, status }) {
+export default function Questions({ questionDB, changeStatus, status, formData }) {
+	
 	const initialQuestionState = questionDB.map((el) => {
 		return {
 			key: nanoid(),
@@ -69,12 +71,13 @@ export default function Questions({ questionDB, changeStatus, status }) {
 			{renderQuestions}
 			<div className='result-container'>
 				{status === 'end' && (
-					<h2 className='result-text'>You scored {totalScore}/5 correct answers</h2>
+					<h2 className='result-text'>You scored {totalScore}/{formData.quantity} correct answers</h2>
 				)}
 				<button className='check-btn' onClick={changeStatus}>
 					{status === 'end' ? 'Try Again' : 'Check Answers'}
 				</button>
 			</div>
+			{status === 'end' && ((totalScore/formData.quantity) > 0.5) && <Confetti />}
 		</>
 	);
 }
