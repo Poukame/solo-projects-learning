@@ -46,7 +46,7 @@ function Answers({
 		status !== 'end' && saveToLocalStorage(questionID, answerState);
 	}, [answerState]);
 
-	function style(selected, answer, questionID2, savedAnswersDetails) {
+	function setStyle(selected, answer, questionID2, savedAnswersDetails) {
 		const targetAnswer =
 			savedAnswersDetails &&
 			savedAnswersDetails.find(({ questionID }) => questionID === questionID2);
@@ -81,7 +81,7 @@ function Answers({
 			<button
 				key={nanoid()}
 				className='quiz--btn'
-				style={style(el.isSelected, el.answer, el.questionID, savedAnswersDetails)}
+				style={setStyle(el.isSelected, el.answer, el.questionID, savedAnswersDetails)}
 				onClick={() => {
 					handleClick(el.answerID, el.isSelected);
 				}}

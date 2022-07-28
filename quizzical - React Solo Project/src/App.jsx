@@ -14,10 +14,13 @@ function App() {
 		catID: 9,
 		difficulty: 'medium',
 		quantity: 5,
+		minQuestion: 3,
+		maxQuestion: 10
 	}
 
+	const {minQuestion, maxQuestion} = defaultOptionValue
 	const [formData, setFormData] = useState(defaultOptionValue);
-  
+    console.log('~ formData', formData);
 	
 	useEffect(() => {
 		fetch('https://opentdb.com/api_category.php')
@@ -32,11 +35,26 @@ function App() {
 			return {
 				...prevFormData,
 				[name]: type === 'number' ? valueAsNumber : value,
-				//difficulty: name === 'difficulty' ? value : prevFormData.difficulty,
-				//catID: name === 'category' ? value : prevFormData.catID,
-				//quantity: type === 'number' ? valueAsNumber : prevFormData.quantity,
 			};
 		});
+	}
+
+	function handlePlus() {
+		setFormData((prevFormData) => {
+			return {
+				...prevFormData,
+				quantity: (prevFormData.quantity + 1 > maxQuestion) ? maxQuestion : prevFormData.quantity + 1
+			};
+		})
+	}
+
+	function handleMinus() {
+		setFormData((prevFormData) => {
+			return {
+				...prevFormData,
+				quantity: (prevFormData.quantity - 1 < minQuestion) ? minQuestion : prevFormData.quantity - 1
+			};
+		})
 	}
 
 	useEffect(() => {
@@ -56,7 +74,8 @@ function App() {
 		setGameStatus((prev) => ({ ...prev, status: 'option' }));
 	}
 
-	function toQuiz() {
+	function toQuiz(event) {
+		event.preventDefault()
 		setGameStatus((prev) => ({ status: 'quiz', reset: !prev.reset }));		 
 	}
 
@@ -70,12 +89,13 @@ function App() {
 		setFormData(defaultOptionValue)
 	}
 
+
 	return (
 		<div className='app'>
 			<img className='bulb blue' src={blueCircle} alt='' />
 			<img className='bulb yellow' src={yellowCircle} alt='' />
 			<main className='app-container'>
-				{(gameStatus.status === 'start' || gameStatus.status === 'option') && <Start changeStatus={toQuiz} handleChange={handleChange} formData={formData} categories={categories} toOptions={toOptions}></Start>}
+				{(gameStatus.status === 'start' || gameStatus.status === 'option') && <Start changeStatus={toQuiz} handleChange={handleChange} formData={formData} categories={categories} toOptions={toOptions} status={gameStatus.status} handlePlus={handlePlus} handleMinus={handleMinus} minQuestion={minQuestion} maxQuestion={maxQuestion}></Start>}
 				{(gameStatus.status === 'quiz' || gameStatus.status === 'end') && <Questions questionDB={questionDB} changeStatus={endGame} status={gameStatus.status} formData={formData} />}
 			</main>
 		</div>
