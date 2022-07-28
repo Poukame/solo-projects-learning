@@ -8,7 +8,10 @@ import randomizeAnswers from './utils/randomizer';
 function App() {
 	const [gameStatus, setGameStatus] = useState({ status: 'start', reset: true });
 	const [questionDB, setQuestionDB] = useState([]);
+    console.log('~ questionDB', questionDB);
 	const [categories, setCategories] = useState([]);
+	const [spinner, setSpinner] = useState(false)
+   
 
 	const defaultOptionValue = {
 		catID: 9,
@@ -20,7 +23,6 @@ function App() {
 
 	const {minQuestion, maxQuestion} = defaultOptionValue
 	const [formData, setFormData] = useState(defaultOptionValue);
-    console.log('~ formData', formData);
 	
 	useEffect(() => {
 		fetch('https://opentdb.com/api_category.php')
@@ -59,11 +61,14 @@ function App() {
 
 	useEffect(() => {
 		localStorage.removeItem('savedAnswers');
+		if(gameStatus.status !== 'start')
 		fetch(
 			`https://opentdb.com/api.php?amount=${formData.quantity}&category=${formData.catID}&difficulty=${formData.difficulty}&type=multiple&encode=url3986`
 		)
 			.then((res) => res.json())
-			.then((data) => setQuestionDB(randomizeAnswers(data.results)));
+			.then((data) => setQuestionDB(randomizeAnswers(data.results)))
+			.then(() => setGameStatus((prev) => ({ ...prev, status: 'quiz'})))
+			//res.ok && setGameStatus((prev) => ({ ...prev, status: 'quiz'}))
 			///add catch error
 	}, [gameStatus.reset]);
 
@@ -76,7 +81,7 @@ function App() {
 
 	function toQuiz(event) {
 		event.preventDefault()
-		setGameStatus((prev) => ({ status: 'quiz', reset: !prev.reset }));		 
+		setGameStatus((prev) => ({ ...prev, reset: !prev.reset }));		 
 	}
 
 	function endGame() {
@@ -96,6 +101,7 @@ function App() {
 			<img className='bulb yellow' src={yellowCircle} alt='' />
 			<main className='app-container'>
 				{(gameStatus.status === 'start' || gameStatus.status === 'option') && <Start changeStatus={toQuiz} handleChange={handleChange} formData={formData} categories={categories} toOptions={toOptions} status={gameStatus.status} handlePlus={handlePlus} handleMinus={handleMinus} minQuestion={minQuestion} maxQuestion={maxQuestion}></Start>}
+				{spinner && 'waiting'}
 				{(gameStatus.status === 'quiz' || gameStatus.status === 'end') && <Questions questionDB={questionDB} changeStatus={endGame} status={gameStatus.status} formData={formData} />}
 			</main>
 		</div>
