@@ -123,6 +123,7 @@ img {
 	position: relative;
 	z-index: 2;
 	padding: 3em 1em;
+	min-height: 100vh;
 }
 
 main {
@@ -182,6 +183,7 @@ main {
 }
 
 .quiz-container {
+	
 	-ms-flex-item-align: start;
 	    align-self: flex-start;
 }

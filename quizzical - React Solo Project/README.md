@@ -43,7 +43,7 @@ I added extras :
 ### Links
 
 - [GitHub Repo](https://github.com/Poukame/solo-projects-learning/tree/main/quizzical%20-%20React%20Solo%20Project)
-- Live Demo : [Quizzical](https://movie-search-watchlist.netlify.app/)
+- Live Demo : [Quizzical](https://unique-zabaione-b717a2.netlify.app/)
 
 ## My process
 
