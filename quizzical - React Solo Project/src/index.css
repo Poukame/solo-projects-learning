@@ -1,6 +1,14 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 :root {
 	font-size: min(calc(0.7em + 1vw), 18px);
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	--ff-primary: 'Karla', sans-serif;
 
 	--fw-reg: 500;
@@ -24,12 +32,9 @@
 *,
 *::before,
 *::after {
-	box-sizing: inherit;
+	-webkit-box-sizing: inherit;
+	        box-sizing: inherit;
 }
-
-/*   * + * {
-  margin-top: 1.5em;
-  } */
 
 html {
 	scroll-behavior: smooth;
@@ -39,6 +44,7 @@ html,
 body {
 	margin: 0;
 	padding: 0;
+	font-family: var(--ff-primary);
 }
 
 h1,
@@ -51,15 +57,6 @@ h3 {
 img {
 	width: 100%;
 	display: block;
-}
-
-#root {
-	/*   display: flex;
-  justify-content: center;
-  align-content: center;
-  min-height: 100vh;
-  background-color: #a5a5a5; */
-	font-family: var(--ff-primary);
 }
 
 /*****************
@@ -87,28 +84,42 @@ img {
 	color: var(--clr-quest-answer);
 }
 
+.error-msg {
+	font-weight: var(--fw-bold);
+	color: red;
+	line-height: 1.5;
+	font-size: 1.1rem;
+}
+
 /*****************
     LAYOUT
 *****************/
 
 .start-screen {
 	min-height: 90vh;
+	display: -ms-grid;
 	display: grid;
 	place-content: center;
 }
 
 .app {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
 	position: relative;
 	min-width: 100%;
-
 	background-color: var(--clr-bg);
 }
 
 .app-container {
-	align-self: flex-start;
+	-ms-flex-item-align: start;
+	    align-self: flex-start;
 	position: relative;
 	z-index: 2;
 	padding: 3em 1em;
@@ -143,33 +154,8 @@ main {
 	padding-block: 1em;
 	border-radius: 10px;
 	cursor: pointer;
-	margin: 2em auto 0 auto;
+	margin: 2em auto 2em auto;
 	display: block;
-}
-
-.check-btn {
-	max-width: 200px;
-}
-
-.start-btn:hover,
-.start-btn:focus {
-	opacity: 0.8;
-	transition: 200ms;
-}
-
-.quiz-container {
-	align-self: flex-start;
-}
-
-.quiz__question {
-	margin-bottom: 1em;
-}
-
-.quiz__btn-wrapper {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1em;
-	justify-content: flex-start;
 }
 
 .quiz--btn {
@@ -182,15 +168,67 @@ main {
 	cursor: pointer;
 }
 
+.start-btn:disabled,
+.start-btn:disabled:focus,
+.start-btn:disabled:hover {
+	background-color: var(--clr-wrong);
+	opacity: .5;
+	color: var(--clr-btn);
+	cursor:default;
+}
+
+.check-btn {
+	max-width: 200px;
+}
+
+.quiz-container {
+	-ms-flex-item-align: start;
+	    align-self: flex-start;
+}
+
+.quiz__question {
+	margin-bottom: 1em;
+}
+
+.quiz__btn-wrapper {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	gap: 1em;
+	-webkit-box-pack: start;
+	    -ms-flex-pack: start;
+	        justify-content: flex-start;
+}
+
+.start-btn:hover,
+.start-btn:focus,
+.quiz--btn:hover,
+.quiz--btn:focus,
+.check-btn:focus,
+.check-btn:hover {
+	opacity: 0.8;
+	-webkit-transition: 200ms ease-out;
+	-o-transition: 200ms ease-out;
+	transition: 200ms ease-out;
+}
+
 .quiz--divider {
 	border: var(--clr-div) solid 1px;
 	margin: 1.2em 0 1.5em 0;
 }
 
 .result-container {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	justify-content: space-evenly;
-	align-items: baseline;
+	-webkit-box-pack: space-evenly;
+	    -ms-flex-pack: space-evenly;
+	        justify-content: space-evenly;
+	-webkit-box-align: baseline;
+	    -ms-flex-align: baseline;
+	        align-items: baseline;
 }
 
 select,
@@ -242,13 +280,14 @@ select {
 
 	margin: 0;
 	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 }
 
 select.minimal {
+	background-image: -o-linear-gradient(45deg, transparent 50%, gray 50%),
+		-o-linear-gradient(315deg, gray 50%, transparent 50%), -o-linear-gradient(left, #ccc, #ccc);
 	background-image: linear-gradient(45deg, transparent 50%, gray 50%),
 		linear-gradient(135deg, gray 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc);
 	background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px),
@@ -258,6 +297,8 @@ select.minimal {
 }
 
 select.minimal:focus {
+	background-image: -o-linear-gradient(45deg, green 50%, transparent 50%),
+		-o-linear-gradient(315deg, transparent 50%, green 50%), -o-linear-gradient(left, #ccc, #ccc);
 	background-image: linear-gradient(45deg, green 50%, transparent 50%),
 		linear-gradient(135deg, transparent 50%, green 50%), linear-gradient(to right, #ccc, #ccc);
 	background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em, calc(100% - 2.5em) 0.5em;
@@ -292,11 +333,16 @@ input[type='number']::-webkit-outer-spin-button {
 	border: thin solid var(--clr-btn);
 	width: 80%;
 	height: 50px;
-	justify-content: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
 	margin: 0 auto;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
 	border-radius: 15px;
-	align-content: center;
+	-ms-flex-line-pack: center;
+	    align-content: center;
 	overflow: hidden;
 }
 
@@ -317,3 +363,40 @@ input[type='number']::-webkit-outer-spin-button {
 	font-size: 1.4rem;
 	font-family: inherit;
 }
+
+/************
+SPINNER
+https://css-tricks.com/single-element-loaders-the-spinner/
+************/
+.loader {
+	width: 70px; /* control the size */
+	aspect-ratio: 1;
+	display: -ms-grid;
+	display: grid;
+	margin: 1.5em auto 0;
+	-webkit-mask: conic-gradient(from 22deg, #0003,#000);
+			mask: conic-gradient(from 22deg, #0003,#000);
+	-webkit-animation: load 1s steps(8) infinite;
+	        animation: load 1s steps(8) infinite;
+  }
+  .loader,
+  .loader:before {
+	--_g: linear-gradient(var(--clr-quest-answer) 0 0) 50%; /* update the color here */
+	background: 
+	  var(--_g)/34% 8%  space no-repeat,
+	  var(--_g)/8%  34% no-repeat space;
+  }
+  .loader:before {
+	content: "";
+	-webkit-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+  }
+  @-webkit-keyframes load {
+	from {-webkit-transform: rotate(0turn);transform: rotate(0turn)}
+	to   {-webkit-transform: rotate(1turn);transform: rotate(1turn)}
+  }
+  @keyframes load {
+	from {-webkit-transform: rotate(0turn);transform: rotate(0turn)}
+	to   {-webkit-transform: rotate(1turn);transform: rotate(1turn)}
+  }

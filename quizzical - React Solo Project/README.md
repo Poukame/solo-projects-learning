@@ -1,33 +1,69 @@
+# Quizzical - 29th July 2022
+
+## Table of contents
+
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+- [Author](#author)
+
 ## Overview
 
-This was my first project using React. The goal was to reproduce the card design from a Figma template.
+This solo project is from the Scrimba Front End Developper course.
+The goal was to build a a quiz using the provided Figma design and the trivia API (https://opentdb.com/api_config.php) to fetch the data.
+
+This was a really challenging project. I blocked a couple of times in the process but by reading the React Documentation and aksing for help I managed to overcome the challenges.
+
+Overall, this project allowed me to really consolidate the React basics.
+
+### The challenge Requirement
+
+Users should be able to:
+
+- Select the answers
+- See the corrects and wrong answers after checking for the result
+- See the final score
+
+I added extras :
+- Ability to choose the question category, the difficulty and the number of questions
+- Error message if the API call fails or if the user uses a VPN.
+- End animation if the user scores more than 50%
+- Ability to start a new game
+- Loading spinning wheel
 
 ### Screenshot
 
-![Visual](./src/screenshot/Screenshot%20from%202022-06-20%2017-46-36.jpg)
+![Functionalities](./src/img/quizzical-gif.webp)
 
 ### Links
 
-- [GitHub Repo](https://github.com/Poukame/solo-projects-learning/tree/main/Professional%20Card%20-%20React%20Solo%20Project)
-- Live Demo : [Professional Card](https://professional-card-react.netlify.app/)
+- [GitHub Repo](https://github.com/Poukame/solo-projects-learning/tree/main/quizzical%20-%20React%20Solo%20Project)
+- Live Demo : [Quizzical](https://movie-search-watchlist.netlify.app/)
 
 ## My process
 
-Using the components structure of React was a bit disorientating at first but I managed to get the design.
-I probably could have reduce the number of components.
+I started with the layout starting with the mobile design.
 
-I think the hardest part was to get the project online and published on Netlify. I faced many problem and I eventually managed and learned a lot about the build process, NPM and Netlify toml.
+Then I coded the logic part but I found out the component tree structure I had chosen wasn't ideal.
+I refactored everything almost from scratch and finally managed to make it work. I faced a component re-rendering problem which I couldn't solved at first. I decided to use `localStorage` to fix this issue.
 
 ### Built with
 
-- React App
-- Based on Figma Design
+- React
+- Vite
+- NPM (nanoid, Confetti)
 
-### What I learned
+### Continued development
 
-The main learning points are :
-- Using React components and JSX
-- Get a React App build online on Netlify
+I feel there are too many props passing down. I think I could use `useContext` to simply the code a bit more.
+I also think I may use `useReducer` to manage the state in a better way.
+
+This is definitely something I will try to do on my next project.
 
 ## Author
 
@@ -37,7 +73,8 @@ The main learning points are :
 
 ## Useful Resources I Used
 
-https://codepen.io/phusum/pen/VQrQqy
-https://markheath.net/post/customize-radio-button-css
-https://formik.org/docs/examples/radio-group
+- CSS prefixer : https://autoprefixer.github.io/
+- CSS style for the form : https://www.sliderrevolution.com/resources/css-select-styles/
+- CSS style for the incremental button : https://get.foundation/building-blocks/blocks/plus-minus-input.html
+- CSS for the loading spinner : https://css-tricks.com/single-element-loaders-the-spinner/
 
