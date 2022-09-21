@@ -3,6 +3,17 @@ import Header from './components/Header';
 import Card from './components/Card';
 import Data from './Data';
 
+interface Props {
+	id: string;
+	title: string;
+	location: string;
+	googleMapsUrl: string;
+	startDate: string;
+	endDate: string;
+	description: string;
+	imageUrl: string;
+}
+
 function App() {
 
     const cards = Data.map(item => {
