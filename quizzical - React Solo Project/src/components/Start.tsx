@@ -1,5 +1,5 @@
-import React from 'react';
 import { nanoid } from 'nanoid';
+import {IPropsStart} from '../Interface'
 
 export default function Start({
 	changeStatus,
@@ -13,7 +13,7 @@ export default function Start({
 	minQuestion,
 	maxQuestion,
 	spinner,
-}) {
+}: IPropsStart ){
 	const allCategories = categories.map((el) => {
 		return (
 			<option value={el.id} key={nanoid()}>

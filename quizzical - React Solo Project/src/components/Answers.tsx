@@ -1,7 +1,6 @@
-import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
-import { useEffect } from 'react';
+import {PropsAnswers} from '../Interface'
 
 function Answers({
 	correctAnswer,
@@ -10,7 +9,7 @@ function Answers({
 	saveToLocalStorage,
 	status,
 	savedAnswersDetails,
-}) {
+}: PropsAnswers) {
 	const initialState = allAnswers.map((el) => {
 		return {
 			answer: el,
@@ -24,7 +23,7 @@ function Answers({
 
 	const [answerState, setAnswerState] = useState(initialState);
 
-	function handleClick(answerID, isSelected) {
+	function handleClick(answerID: string, isSelected: boolean): void {
 		setAnswerState((el) => {
 			return el.map((item) => {
 				return item.answerID === answerID
@@ -46,8 +45,13 @@ function Answers({
 		status !== 'end' && saveToLocalStorage(questionID, answerState);
 	}, [answerState]);
 
-	function setStyle(selected, answer, questionID2, savedAnswersDetails) {
-		const targetAnswer =
+	function setStyle(
+		selected: boolean,
+		answer: string,
+		questionID2: string,
+		savedAnswersDetails: []
+	) {
+		const targetAnswer: any =
 			savedAnswersDetails &&
 			savedAnswersDetails.find(({ questionID }) => questionID === questionID2);
 

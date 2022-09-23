@@ -1,17 +1,22 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Start from './components/Start';
 import Questions from './components/Questions';
 import blueCircle from './img/blue-bulb.png';
 import yellowCircle from './img/yellow-bulb.png';
 import randomizeAnswers from './utils/randomizer';
+import { IGameStatus, IQuestionDB, CategoriesObj, IOptions } from './Interface';
 
 function App() {
-	const [gameStatus, setGameStatus] = useState({ status: 'start', reset: true, error: false });
-	const [questionDB, setQuestionDB] = useState([]);
-	const [categories, setCategories] = useState([]);
+	const [gameStatus, setGameStatus] = useState<IGameStatus>({
+		status: 'start',
+		reset: true,
+		error: false,
+	});
+	const [questionDB, setQuestionDB] = useState<IQuestionDB>([]);
+	const [categories, setCategories] = useState<CategoriesObj>([]);
 	const [spinner, setSpinner] = useState(false);
 
-	const defaultOptionValue = {
+	const defaultOptionValue: IOptions = {
 		catID: 9,
 		difficulty: 'medium',
 		quantity: 5,
@@ -34,8 +39,8 @@ function App() {
 			.catch(() => setGameStatus((prev) => ({ ...prev, error: true })));
 	}, []);
 
-	function handleChange(event) {
-		const { name, value, type, valueAsNumber } = event.target;
+	function handleChange<T>(event: T extends React.FormEvent<HTMLInputElement> ? any:any) {
+		const { name, value, type, valueAsNumber } = event.currentTarget;
 		setFormData((prevFormData) => {
 			return {
 				...prevFormData,
@@ -76,6 +81,7 @@ function App() {
 					throw new Error('error');
 				})
 				.then((data) => setQuestionDB(randomizeAnswers(data.results)))
+				
 				.then(() => setGameStatus((prev) => ({ ...prev, status: 'quiz' })))
 				.then(() => setSpinner(false))
 				.catch(() => {
@@ -85,12 +91,11 @@ function App() {
 		}
 	}, [gameStatus.reset]);
 
-
-	function toOptions() {
+	function toOptions():void{
 		setGameStatus((prev) => ({ ...prev, status: 'option' }));
 	}
 
-	function toQuiz(event) {
+	function toQuiz(event: React.SyntheticEvent) {
 		event.preventDefault();
 		setGameStatus((prev) => ({ ...prev, reset: !prev.reset }));
 	}

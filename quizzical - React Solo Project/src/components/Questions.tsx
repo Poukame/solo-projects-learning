@@ -1,11 +1,10 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import Answers from './Answers';
-import Confetti from 'react-confetti'
+import Confetti from 'react-confetti';
+import { PropsQuestions, IAnswerState } from '../Interface';
 
-export default function Questions({ questionDB, changeStatus, status, formData }) {
-	
+export default function Questions({ questionDB, changeStatus, status, formData }: PropsQuestions) {
 	const initialQuestionState = questionDB.map((el) => {
 		return {
 			key: nanoid(),
@@ -24,9 +23,10 @@ export default function Questions({ questionDB, changeStatus, status, formData }
 		setQuestionSet(initialQuestionState);
 	}, [questionDB]);
 
-	const savedAnwers = JSON.parse(localStorage.getItem('savedAnswers'));
+	const savedAnwers = JSON.parse(localStorage.getItem('savedAnswers') || '[]');
 
-	const totalScore = savedAnwers && savedAnwers.reduce((acc, cur) => acc + cur.point, 0);
+	const totalScore =
+		savedAnwers && savedAnwers.reduce((acc: number, cur: any) => acc + cur.point, 0);
 
 	const renderQuestions = questionSet.map((el) => {
 		return (
@@ -38,7 +38,9 @@ export default function Questions({ questionDB, changeStatus, status, formData }
 						questionID={el.questionID}
 						correctAnswer={el.correctAnswer}
 						allAnswers={el.allAnswers}
-						saveToLocalStorage={saveToLocalStorage}
+						saveToLocalStorage={(questionID, answerState) =>
+							saveToLocalStorage(questionID, answerState)
+						}
 						status={status}
 						savedAnswersDetails={savedAnwers}
 					/>
@@ -48,9 +50,11 @@ export default function Questions({ questionDB, changeStatus, status, formData }
 		);
 	});
 
-	function saveToLocalStorage(questionID, answerState) {
+	function saveToLocalStorage(questionID: string, answerState: IAnswerState[]) {
 		const answer = answerState.find(({ isSelected }) => isSelected === true);
-		const question = answer ? JSON.parse(localStorage.getItem('savedAnswers')) : questionSet;
+		const question: { questionID: string }[] = answer
+			? JSON.parse(localStorage.getItem('savedAnswers') || '')
+			: questionSet;
 
 		const copyData = question.map((el) => {
 			return el.questionID === questionID
@@ -71,13 +75,15 @@ export default function Questions({ questionDB, changeStatus, status, formData }
 			{renderQuestions}
 			<div className='result-container'>
 				{status === 'end' && (
-					<h2 className='result-text'>You scored {totalScore}/{formData.quantity} correct answers</h2>
+					<h2 className='result-text'>
+						You scored {totalScore}/{formData.quantity} correct answers
+					</h2>
 				)}
 				<button className='check-btn' onClick={changeStatus}>
 					{status === 'end' ? 'Try Again' : 'Check Answers'}
 				</button>
 			</div>
-			{status === 'end' && ((totalScore/formData.quantity) > 0.5) && <Confetti />}
+			{status === 'end' && totalScore / formData.quantity > 0.5 && <Confetti />}
 		</>
 	);
 }
