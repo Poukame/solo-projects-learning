@@ -1,5 +1,5 @@
 import shuffle from './shuffle'
-import { IQuestionDB } from '../App'
+import { IQuestionDB } from '../Interface'
 
 function randomizeAnswers(question:IQuestionDB) {
     return question.map((question) => ({
