@@ -1,0 +1,14 @@
+{
+  "name": "Food Order",
+  "description": "Interactive food order app",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vite": "latest"
+  },
+  "devDependencies": {}
+}

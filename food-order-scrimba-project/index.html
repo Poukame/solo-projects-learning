@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Food Order App</title>
+		<link rel="stylesheet" href="index.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Smythe&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		<header>
+			<div class="header-headline">
+				<h2>Maggie's Burger</h2>
+				<p>The Best Burgers In Tao</p>
+			</div>
+		</header>
+		<main id="main">
+			<section class="menu-list" id="menu-list">
+			</section>
+			<section class="order" id="order">
+				<div class="instruction">
+					Click any add (+) button to start your order!
+				</div>
+			</section>
+			<div class="modal-overlay">
+				<div class="modal-inner">
+					<button class="btn-close-modal">X</button>
+					<p>Enter Card Details</p>
+					<form id="payment-form">
+						<input class="modal-input" id='name' type="text" placeholder="Enter your name" aria-label="Enter your name" required></input>
+						<input class="modal-input" type="number" minlength="16" maxlength="16" placeholder="Enter card number" aria-label="Enter card number" required></input>
+						<input class="modal-input" type="number" minlength="3" maxlength="3" placeholder="Enter CVV" aria-label="Enter CVV" required></input>
+						<button type='submit' class="pay-btn">Pay</button>
+					</form>
+				</div>
+			</div>
+
+		</main>
+		<script src="index.js" type="module"></script>
+	</body>
+	</html>
